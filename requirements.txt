@@ -1,5 +1,5 @@
 streamlit
-torch==2.1.2
+torch==2.1.0
 transformers
 sentence-transformers
 scikit-learn
