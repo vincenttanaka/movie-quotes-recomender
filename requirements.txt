@@ -1,7 +1,7 @@
 streamlit
-torch==2.1.0
+torch>=2.5.0
 transformers
 sentence-transformers
-scikit-learn
-pandas
 numpy
+pandas
+scikit-learn
