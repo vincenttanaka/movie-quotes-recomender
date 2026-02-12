@@ -1,6 +1,6 @@
 Movie Quote Recommender App (Streamlit)
   
-Aplikasi web sederhana berbasis Streamlit untuk merekomendasikan kutipan film berdasarkan kemiripan semantik. Aplikasi ini membandingkan input teks pengguna dengan kumpulan kutipan film menggunakan embedding NLP dan cosine similarity.
+   Aplikasi web sederhana berbasis Streamlit untuk merekomendasikan kutipan film berdasarkan kemiripan semantik. Aplikasi ini membandingkan input teks pengguna dengan       kumpulan kutipan film menggunakan embedding NLP dan cosine similarity.
 
 Project ini menggunakan beberapa model embedding:
 1. BERT
@@ -37,27 +37,34 @@ Library utama yang digunakan dalam project ini:
 6. pandas – pengolahan data CSV
 7. scikit-learn – cosine similarity
 
-Semua dependensi sudah didefinisikan di requirements.txt
+  Semua dependensi sudah didefinisikan di requirements.txt
 
 Langkah Instalasi
 1. Clone repository
-git clone https://github.com/username/movie-quote-recommender.git
-cd movie-quote-recommender
 
-2. Buat virtual environment (opsional tapi disarankan)
-python -m venv venv
-source venv/bin/activate   # Linux / Mac
-venv\Scripts\activate      # Windows
+   git clone https://github.com/vincenttanaka/movie-quotes-recomender.git
 
-3. Install dependensi
-pip install -r requirements.txt
-Pastikan versi Python kamu kompatibel (disarankan Python 3.9+).
+   cd movie-quote-recommender
+
+3. Buat virtual environment (opsional tapi disarankan)
+   python -m venv venv
+
+   source venv/bin/activate   # Linux / Mac
+
+   venv\Scripts\activate      # Windows
+
+4. Install dependensi
+   
+   pip install -r requirements.txt
+   
+   Pastikan versi Python kamu kompatibel (disarankan Python 3.9+).
 
 Cara Menjalankan Aplikasi
 
-Setelah instalasi selesai, jalankan perintah berikut:
-streamlit run app.py
+   Setelah instalasi selesai, jalankan perintah berikut:
 
-Aplikasi akan otomatis terbuka di browser
+   streamlit run app.py
+
+   Aplikasi akan otomatis terbuka di browser
 
 
