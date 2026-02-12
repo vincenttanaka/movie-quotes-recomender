@@ -1,10 +1,27 @@
+import streamlit as st
+
+# ======================
+# Page configuration
+# ======================
+st.set_page_config(
+    page_title="Movie Quote Recommender",
+    layout="centered"
+)
+
+# ======================
+# Imports
+# ======================
 import numpy as np
 import pandas as pd
 import torch
 from transformers import BertTokenizer, BertModel
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-import streamlit as st
+
+# ======================
+# Device
+# ======================
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ======================
 # Load data & embeddings
@@ -15,9 +32,9 @@ bert_emb  = np.load("./bert_embeddings.npy")
 sbert_emb = np.load("./sbert_embeddings.npy")
 mpnet_emb = np.load("./mpnet_embeddings.npy")
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-
+# ======================
+# Load models (cached)
+# ======================
 @st.cache_resource
 def load_models():
     bert_tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
@@ -31,7 +48,9 @@ def load_models():
 
 bert_tokenizer, bert_model, sbert_model, mpnet_model = load_models()
 
-
+# ======================
+# Encoding functions
+# ======================
 def encode_bert(texts):
     with torch.no_grad():
         encoded = bert_tokenizer(
@@ -61,6 +80,9 @@ def encode_mpnet(texts):
         normalize_embeddings=True
     )
 
+# ======================
+# Recommendation logic
+# ======================
 def recommend_ensemble(input_quote, top_n=5, per_model_k=10):
     q_bert  = encode_bert([input_quote])
     q_sbert = encode_sbert([input_quote])
@@ -100,9 +122,9 @@ def recommend_ensemble(input_quote, top_n=5, per_model_k=10):
 
     return results.reset_index(drop=True)
 
-
-st.set_page_config(page_title="Movie Quote Recommender", layout="centered")
-
+# ======================
+# Streamlit UI
+# ======================
 st.title("🎬 Movie Quote Recommender")
 st.write(
     "Masukkan potongan dialog film, lalu sistem akan mencari kutipan "
@@ -115,7 +137,6 @@ if user_input:
     with st.spinner("Finding similar quotes..."):
         recommendations = recommend_ensemble(user_input, top_n=5)
 
-   
     top_result = recommendations.iloc[0]
 
     st.subheader("⭐ Best Match")
@@ -129,7 +150,6 @@ if user_input:
         """
     )
 
-   
     st.subheader("Top Recommendations")
 
     for _, row in recommendations.iterrows():
@@ -143,5 +163,3 @@ if user_input:
                 """
             )
             st.divider()
-
-   
