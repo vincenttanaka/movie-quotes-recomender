@@ -67,4 +67,5 @@ Cara Menjalankan Aplikasi
 
    Aplikasi akan otomatis terbuka di browser
 
+<img width="1349" height="914" alt="image" src="https://github.com/user-attachments/assets/6ee11afd-215e-480c-9c0a-2bfffc5d7506" />
 
