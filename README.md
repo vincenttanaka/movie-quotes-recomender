@@ -44,16 +44,16 @@ Langkah Instalasi
 
    git clone https://github.com/vincenttanaka/movie-quotes-recomender.git
 
-   cd movie-quote-recommender
 
 3. Buat virtual environment (opsional tapi disarankan)
+   
    python -m venv venv
 
    source venv/bin/activate   # Linux / Mac
 
    venv\Scripts\activate      # Windows
 
-4. Install dependensi
+5. Install dependensi
    
    pip install -r requirements.txt
    
