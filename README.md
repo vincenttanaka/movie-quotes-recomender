@@ -1,3 +1,12 @@
+Anggota Kelompok:
+Agung Ramadhan		2802538435,
+M. Qaishar Arif Navarino	2802538712,
+Sidney Lias			2802538334,
+Syarifana Amalia Putri	2802538340,
+Vincent Tanaka		2802540156 
+
+
+
 Movie Quote Recommender App (Streamlit)
   
    Aplikasi web sederhana berbasis Streamlit untuk merekomendasikan kutipan film berdasarkan kemiripan semantik. Aplikasi ini membandingkan input teks pengguna dengan       kumpulan kutipan film menggunakan embedding NLP dan cosine similarity.
