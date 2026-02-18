@@ -1,16 +1,37 @@
 import streamlit as st
 
-# ======================
-# Page configuration
-# ======================
 st.set_page_config(
     page_title="Movie Quote Recommender",
     layout="centered"
 )
 
-# ======================
-# Imports
-# ======================
+import base64
+
+def set_background(image_file):
+    with open(image_file, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url("data:image/jpg;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+set_background("bg.avif")
+
+
+
 import numpy as np
 import pandas as pd
 import torch
@@ -18,23 +39,17 @@ from transformers import BertTokenizer, BertModel
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# ======================
-# Device
-# ======================
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# ======================
-# Load data & embeddings
-# ======================
+
 df = pd.read_csv("./movie_quotes.csv")
 
 bert_emb  = np.load("./bert_embeddings.npy")
 sbert_emb = np.load("./sbert_embeddings.npy")
 mpnet_emb = np.load("./mpnet_embeddings.npy")
 
-# ======================
-# Load models (cached)
-# ======================
+
 @st.cache_resource
 def load_models():
     bert_tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
@@ -48,9 +63,7 @@ def load_models():
 
 bert_tokenizer, bert_model, sbert_model, mpnet_model = load_models()
 
-# ======================
-# Encoding functions
-# ======================
+
 def encode_bert(texts):
     with torch.no_grad():
         encoded = bert_tokenizer(
@@ -80,9 +93,6 @@ def encode_mpnet(texts):
         normalize_embeddings=True
     )
 
-# ======================
-# Recommendation logic
-# ======================
 def recommend_ensemble(input_quote, top_n=5, per_model_k=10):
     q_bert  = encode_bert([input_quote])
     q_sbert = encode_sbert([input_quote])
@@ -122,9 +132,7 @@ def recommend_ensemble(input_quote, top_n=5, per_model_k=10):
 
     return results.reset_index(drop=True)
 
-# ======================
-# Streamlit UI
-# ======================
+
 st.title("🎬 Movie Quote Recommender")
 st.write(
     "Masukkan potongan dialog film, lalu sistem akan mencari kutipan "
@@ -163,3 +171,4 @@ if user_input:
                 """
             )
             st.divider()
+
